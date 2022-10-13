@@ -11,7 +11,8 @@ mongoose.connect('mongodb://localhost:27017',{dbName:'Notetest'})
 
 app.use(morgan('tiny'));
 app.use(express.json());
-app.use('/home',note)
+// app.use('/home',note)
+app.use('/api/notes',note)
 
 app.get('/',(req,res)=>{
     res.status(200).json({

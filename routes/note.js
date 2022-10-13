@@ -13,22 +13,24 @@ const noteSchema = new Schema({
 
 const Note = model('note',noteSchema) //create Model
 
-router.get('/',(req,res)=>{
-    res.status(200).json({
-        resultCode :20000,
-        resultData: 'this is note note'
-    });
-})
-router.get('/findall',async (req,res)=>{
+//findall
+router.get('/',async (req,res)=>{
     const findall = await Note.find({})
     res.status(200).json({
         resultCode :20000,
         resultData: findall
     });
 })
-router.get('/findone/:id',async (req,res)=>{
+//findone
+router.get('/:id',async (req,res)=>{
     const {id} = req.params;
-    const result = await Note.findById(id);
+    const result = await Note.findById(id); 
+    if(!result){
+        return res.status(404).json({
+            resultCode : 40400,
+            resultDescription : "Not found"
+        })
+    }
     res.status(200).json({
         resultCode : 20000,
         resultDescription : "Success",
