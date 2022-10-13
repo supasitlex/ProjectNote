@@ -21,6 +21,7 @@ router.get('/',async (req,res)=>{
         resultData: findall
     });
 })
+
 //findone
 router.get('/:id',async (req,res)=>{
     const {id} = req.params;
@@ -39,7 +40,8 @@ router.get('/:id',async (req,res)=>{
     // console.log(result)
 })
 
-router.post('/create',async (req,res)=>{
+//create
+router.post('/',async (req,res)=>{
     const {title,text} = req.body
     console.log(title,text);
     const result = await Note.create({
@@ -54,7 +56,8 @@ router.post('/create',async (req,res)=>{
     })
 })
 
-router.put('/update/:id',async(req,res)=>{
+//update
+router.put('/:id',async(req,res)=>{
     const {id} = req.params;
     const {title,text} = req.body
 
@@ -69,7 +72,8 @@ router.put('/update/:id',async(req,res)=>{
     })
 })
 
-router.delete('/delete/:id',async(req,res)=>{
+//delete
+router.delete('/:id',async(req,res)=>{
     const {id} = req.params;
     const find_id = await Note.findByIdAndDelete(id)
     res.status(200).json({
