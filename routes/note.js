@@ -26,6 +26,16 @@ router.get('/findall',async (req,res)=>{
         resultData: findall
     });
 })
+router.get('/findone/:id',async (req,res)=>{
+    const {id} = req.params;
+    const result = await Note.findById(id);
+    res.status(200).json({
+        resultCode : 20000,
+        resultDescription : "Success",
+        resultData: result
+    })
+    // console.log(result)
+})
 
 router.post('/create',async (req,res)=>{
     const {title,text} = req.body
@@ -37,8 +47,33 @@ router.post('/create',async (req,res)=>{
     })
     res.status(201).json({
         resultCode : 20100,
-        resultDscription :'Create Success' ,
-        reultData : result
+        resultDescription :'Create Success' ,
+        resultData : result
+    })
+})
+
+router.put('/update/:id',async(req,res)=>{
+    const {id} = req.params;
+    const {title,text} = req.body
+
+    await Note.findByIdAndUpdate(id,{
+        title,
+        text
+    })
+    res.status(200).json({
+        resultCode : 20000,
+        resultDescription : 'Update Success',
+        // resultData : find_id
+    })
+})
+
+router.delete('/delete/:id',async(req,res)=>{
+    const {id} = req.params;
+    const find_id = await Note.findByIdAndDelete(id)
+    res.status(200).json({
+        resultCode : 20000,
+        resultDescription : 'Delete Success',
+        resultData : find_id
     })
 })
 
