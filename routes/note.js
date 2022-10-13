@@ -76,6 +76,12 @@ router.put('/:id',async(req,res)=>{
 router.delete('/:id',async(req,res)=>{
     const {id} = req.params;
     const find_id = await Note.findByIdAndDelete(id)
+    if(!find_id){
+        return res.status(404).json({
+            resultCode :40400,
+            resultDescription : "Not Found to Delete",
+        })
+    }
     res.status(200).json({
         resultCode : 20000,
         resultDescription : 'Delete Success',
